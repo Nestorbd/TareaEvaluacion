@@ -28,40 +28,28 @@ class ContactosController
         $data = $this->contacto->getContactoById($id);
         if ($data == null) {
             $data = "No hay ningun contacto con id=" . $id;
-            return(json_encode($data));
+            return($data);
         }else{
-            $data_r[0] = $data;
-            return(json_encode($data_r));
+            return($data);
         }
         
     }
 
-    public function insert()
+    public function insert($data)
     {
-        $data = json_decode(file_get_contents("php://input"));
         $dataCreate = $this->contacto->createContacto($data);
 
         if ($dataCreate) {
             $this->getOne($dataCreate);
-        } else {
-            return(json_encode(array('status' => 'error')));
         }
-
     }
 
-    public function update($id)
+    public function update($data)
     {
-        if (is_array($id)) {
-            $id = implode('', $id);
-        }
-        $data = json_decode(file_get_contents("php://input"));
 
-        $dataUpdate = $this->contacto->updateContacto($id, $data);
-        if ($dataUpdate) {
-            $this->getOne($id);
-        } else {
-            return(json_encode(array('status' => 'error')));
-        }
+        $dataUpdate = $this->contacto->updateContacto($data); 
+        
+        return $dataUpdate;
     }
 
     public function delete($id)
@@ -77,4 +65,5 @@ class ContactosController
             return(json_encode(array('status' => 'success')));
         }
     }
+
 }

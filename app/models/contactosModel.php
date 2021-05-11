@@ -92,9 +92,9 @@ class Contactos
         return $data;
     }
 
-    public function updateContacto($id, $dataNew)
+    public function updateContacto($dataNew)
     {
-        $id = $this->conn->quote($id);
+        $id = $this->conn->quote($dataNew["id"]);
         $sql_get = $this->conn->query("SELECT * FROM contactos WHERE id=" . $id);
         $dataOld = $sql_get->fetch();
         if ($dataOld == null) {
@@ -105,6 +105,7 @@ class Contactos
             foreach ($dataNew as $key => $val) {
                 $return[$key] = $key . " = '" . $val . "'";
             }
+            unset($return["id"]);
             $insData = implode(", ", $return);
 
             $sql = $this->conn->query("UPDATE contactos SET " . $insData . " WHERE id=" . $id);

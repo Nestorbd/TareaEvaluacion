@@ -1,0 +1,12 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+.table{
+    margin-top: 20px;
+}
+
+.form-control{
+    width: 12%;
+}
